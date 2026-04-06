@@ -9,6 +9,7 @@ import { ConnectDB } from './config/db';
 import { initRedis } from './config/redis';
 import {createExpressMiddleware} from "@trpc/server/adapters/express"
 import { trpcRouter } from './routers/trpc';
+import { redirectUrl } from './controllers/url.controller';
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use("/trpc", createExpressMiddleware({
     router:trpcRouter,
 
 }))
+
+app.get("/:shortUrl",redirectUrl)
 app.use('/api/v1', v1Router);
 app.use('/api/v2', v2Router);
 
